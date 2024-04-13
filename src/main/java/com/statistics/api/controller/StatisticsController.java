@@ -27,14 +27,14 @@ public class StatisticsController {
     public ResponseEntity<Void> getShortUrlStatistics(HttpServletRequest request,
         @PathVariable(value = "short_url") String shortURL) throws Exception {
 
-        return utilsService.redirect(null);
+        return null;
     }
 
     @GetMapping("/long_url") 
     public ResponseEntity<Void> getLongURLStatistics(HttpServletRequest request,
         @PathVariable(value = "long_url") String shortURL) throws Exception {
 
-        return utilsService.redirect(null);
+        return null;
     }
     
 }
