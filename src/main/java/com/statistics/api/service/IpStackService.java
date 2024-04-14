@@ -34,6 +34,7 @@ public class IpStackService {
             JSONObject jsonResponse = new JSONObject(response.toString());
 
             ClientLocationInformationDto ipStackResponse = new ClientLocationInformationDto();
+            
             ipStackResponse.setContinentCode(jsonResponse.getString("continent_code"));
             ipStackResponse.setContinentName(jsonResponse.getString("continent_name"));
             ipStackResponse.setCountryCode(jsonResponse.getString("country_code"));
