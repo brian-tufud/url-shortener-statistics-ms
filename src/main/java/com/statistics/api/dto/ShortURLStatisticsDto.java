@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.statistics.api.domain.URLDeviceInformation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-public class ShortURLDto {
+public class ShortURLStatisticsDto {
 
     private Long id;
     
@@ -29,7 +28,7 @@ public class ShortURLDto {
     private int timesUsed;
     
     @JsonProperty("long_url")
-    private LongURLDto longURL;
+    private LongURLStatisticsDto longURL;
     
     private List<URLDeviceInformationDto> devices;
 }

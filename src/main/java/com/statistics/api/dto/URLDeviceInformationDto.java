@@ -1,5 +1,7 @@
 package com.statistics.api.dto;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,5 +36,8 @@ public class URLDeviceInformationDto {
     
     @JsonProperty("agent_version")
     private String agentVersion;
+
+    @JsonProperty("accessed_at")
+    private LocalDateTime accessedAt;
     
 }

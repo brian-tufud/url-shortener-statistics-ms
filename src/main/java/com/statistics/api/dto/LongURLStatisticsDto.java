@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
-public class LongURLDto {
+public class LongURLStatisticsDto {
 
     @JsonProperty("id")
     private Long id;
@@ -22,9 +22,6 @@ public class LongURLDto {
     @JsonProperty("long_url")
     private String longURL;
 
-    @JsonProperty("last_accessed")
-    private LocalDateTime lastAccessed;
-
     @JsonProperty("short_urls")
-    private List<ShortURLDto> shortURLs;
+    private List<ShortURLStatisticsDto> shortURLs;
 }
