@@ -22,24 +22,35 @@ public class LongURLStatisticsService {
     private LongURLStatisticsRepository longURLStatisticsRepository;
 
     public LongURLStatisticsDto getLongURLStatistics(String longURL) {
-        LongURLStatistics data = longURLStatisticsRepository.findByLongURL(longURL);
+        LongURLStatistics data = findByLongURL(longURL);
 
         return utilsService.convertLongURLStatisticsToDto(data);
     }
 
     public void saveLongURLStatistics(URLPairRequest body) {
-        LongURLStatistics longURLStatistics = new LongURLStatistics();
+        LongURLStatistics data = findByLongURL(body.getLongURL());
 
-        longURLStatistics.setLongURL(body.getLongURL());
-        longURLStatistics.getShortURLs().add(shortURLStatisticsService.createShortURLStatistics(body.getShortURL()));
-
-        longURLStatisticsRepository.save(longURLStatistics);
+        if (data == null) {
+            createLongURLStatistics(body.getLongURL(), body.getShortURL());
+        } else {
+            data.getShortURLs().add(shortURLStatisticsService.createShortURLStatistics(body.getShortURL(), data));
+            longURLStatisticsRepository.save(data);
+        }
     }
 
-    public void deleteLongURLStatistics(URLPairRequest body) {
-        LongURLStatistics LongURLStatistics = longURLStatisticsRepository.findByLongURL(body.getLongURL());
+    private LongURLStatistics findByLongURL(String longURL) {
+        LongURLStatistics data = longURLStatisticsRepository.findByLongURL(longURL);
 
-        longURLStatisticsRepository.delete(LongURLStatistics);
+        return data;
+    }
+
+    private void createLongURLStatistics(String longURL, String shortURL) {
+        LongURLStatistics longURLStatistics = new LongURLStatistics();
+
+        longURLStatistics.setLongURL(longURL);
+        longURLStatistics.getShortURLs().add(shortURLStatisticsService.createShortURLStatistics(shortURL, longURLStatistics));
+
+        longURLStatisticsRepository.save(longURLStatistics);
     }
 
 }
