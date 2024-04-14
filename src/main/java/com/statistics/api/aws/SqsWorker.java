@@ -12,6 +12,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.statistics.api.service.EventService;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +26,9 @@ public class SqsWorker {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private EventService eventService;
 
     @EventListener(ApplicationReadyEvent.class)
     public void start() {
@@ -62,6 +67,7 @@ public class SqsWorker {
                     JSONObject json = new JSONObject(body);
 
                     try {
+                        eventService.processEvent(json);
                         System.out.println("deleting message from queue...");
                         sqs.deleteMessage(DeleteMessageRequest.builder()
                                 .queueUrl(fifoQueueUrl)
