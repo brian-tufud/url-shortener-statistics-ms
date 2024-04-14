@@ -6,22 +6,23 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.statistics.api.dto.LongURLStatisticsDto;
-import com.statistics.api.dto.ShortURLStatisticsDto;
+import com.statistics.api.dto.CrudStatusDto;
+import com.statistics.api.dto.CrudStatusDto.CrudStatus;
+import com.statistics.api.request.URLPairRequest;
 import com.statistics.api.service.ShortURLStatisticsService;
 import com.statistics.api.service.LongURLStatisticsService;
 import com.statistics.api.utils.UtilsService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/statistics")
-public class StatisticsController {
+@RequestMapping("/api/internal/statistics")
+public class InternalStatisticsController {
 
     private final ShortURLStatisticsService shortURLStatisticsService;
     private final LongURLStatisticsService longURLStatisticsService;
     private final UtilsService utilsService;
 
-    public StatisticsController(
+    public InternalStatisticsController(
         ShortURLStatisticsService shortURLStatisticsService,
         LongURLStatisticsService longURLStatisticsService,
         UtilsService utilsService) {
@@ -31,24 +32,28 @@ public class StatisticsController {
             this.utilsService = utilsService;
     }
 
-    @GetMapping("/short_url/{short_url}") 
-    public ResponseEntity<ShortURLStatisticsDto> getShortUrlStatistics(HttpServletRequest request,
+    @DeleteMapping("/short_url/{short_url}")
+    public ResponseEntity<CrudStatusDto> deleteLongURLStatistics(HttpServletRequest request,
         @PathVariable(value = "short_url") String shortURL) throws Exception {
-        
-        ShortURLStatisticsDto shortURLStatistics = shortURLStatisticsService.getShortURLStatistics(shortURL);
+
+        shortURLStatisticsService.deleteShortURLStatistics(shortURL);
+
+        CrudStatusDto response = CrudStatusDto.builder().status(CrudStatus.DELETED).build();
 
         HttpHeaders responseHeaders = utilsService.getResponseHeaders();
-        return ResponseEntity.ok().headers(responseHeaders).body(shortURLStatistics);
+        return ResponseEntity.ok().headers(responseHeaders).body(response);
     }
 
-    @GetMapping("/long_url") 
-    public ResponseEntity<LongURLStatisticsDto> getLongURLStatistics(HttpServletRequest request,
-        @RequestParam(value = "long_url") String longURL) throws Exception {
+    @PostMapping("/long_url")
+    public ResponseEntity<CrudStatusDto> saveLongURLStatistics(HttpServletRequest request,
+        @RequestBody URLPairRequest body) throws Exception {
 
-        LongURLStatisticsDto longURLStatistics = longURLStatisticsService.getLongURLStatistics(longURL);
+        longURLStatisticsService.saveLongURLStatistics(body);
+
+        CrudStatusDto response = CrudStatusDto.builder().status(CrudStatus.CREATED).build();
 
         HttpHeaders responseHeaders = utilsService.getResponseHeaders();
-        return ResponseEntity.ok().headers(responseHeaders).body(longURLStatistics);
+        return ResponseEntity.ok().headers(responseHeaders).body(response);
     }
 
 }
