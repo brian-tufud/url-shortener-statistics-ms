@@ -6,6 +6,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.statistics.api.dto.LongURLStatisticsDto;
+import com.statistics.api.dto.ShortURLStatisticsDto;
 import com.statistics.api.service.StatisticsService;
 import com.statistics.api.utils.UtilsService;
 
@@ -24,17 +26,23 @@ public class StatisticsController {
     }
 
     @GetMapping("/{short_url}") 
-    public ResponseEntity<Void> getShortUrlStatistics(HttpServletRequest request,
+    public ResponseEntity<ShortURLStatisticsDto> getShortUrlStatistics(HttpServletRequest request,
         @PathVariable(value = "short_url") String shortURL) throws Exception {
+        
+        ShortURLStatisticsDto shortURLStatistics = statisticsService.getShortURLStatistics(shortURL);
 
-        return null;
+        HttpHeaders responseHeaders = utilsService.getResponseHeaders();
+        return ResponseEntity.ok().headers(responseHeaders).body(shortURLStatistics);
     }
 
     @GetMapping("/long_url") 
-    public ResponseEntity<Void> getLongURLStatistics(HttpServletRequest request,
+    public ResponseEntity<LongURLStatisticsDto> getLongURLStatistics(HttpServletRequest request,
         @PathVariable(value = "long_url") String shortURL) throws Exception {
 
-        return null;
+        LongURLStatisticsDto longURLStatistics = statisticsService.getLongURLStatistics(shortURL);
+
+        HttpHeaders responseHeaders = utilsService.getResponseHeaders();
+        return ResponseEntity.ok().headers(responseHeaders).body(longURLStatistics);
     }
     
 }
