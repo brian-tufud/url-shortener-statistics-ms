@@ -51,7 +51,7 @@ public class ClientStatisticsService {
         UserAgent agent = getUserAgent(userAgentString);
 
         ClientDeviceInformation clientDeviceInformation = new ClientDeviceInformation();
-
+        
         clientDeviceInformation.setDeviceClass(agent.getValue("DeviceClass"));
         clientDeviceInformation.setDeviceName(agent.getValue("DeviceName"));
         clientDeviceInformation.setDeviceBrand(agent.getValue("DeviceBrand"));
