@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name="long_url")
-public class LongURL {
+public class LongURLStatistics {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +29,7 @@ public class LongURL {
 	@Column(name="long_url", columnDefinition = "varchar(1337)")
 	private String longURL;
 
-	@Column(name="last_accessed")
-    private LocalDateTime lastAccessed;
-
 	@OneToMany(mappedBy = "longURL", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ShortURL> shortURLs = new ArrayList<>();
+    private List<ShortURLStatistics> shortURLs = new ArrayList<>();
 
 }

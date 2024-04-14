@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "short_url")
-public class ShortURL {
+public class ShortURLStatistics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class ShortURL {
 
     @ManyToOne
     @JoinColumn(name = "long_url")
-    private LongURL longURL;
+    private LongURLStatistics longURL;
 
 	@OneToMany(mappedBy = "shortURL", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<URLDeviceInformation> devices = new ArrayList<>();
