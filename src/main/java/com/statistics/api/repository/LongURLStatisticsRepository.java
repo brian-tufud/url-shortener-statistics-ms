@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.statistics.api.domain.LongURLStatistics;
 
 @Repository
-public interface LongURLRepository extends JpaRepository<LongURLStatistics, Long> {
+public interface LongURLStatisticsRepository extends JpaRepository<LongURLStatistics, Long> {
 
     public LongURLStatistics findByLongURL(String LongURL);
 

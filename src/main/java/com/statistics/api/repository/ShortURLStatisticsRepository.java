@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.statistics.api.domain.ShortURLStatistics;
 
 @Repository
-public interface ShortURLRepository extends JpaRepository<ShortURLStatistics, Long> {
+public interface ShortURLStatisticsRepository extends JpaRepository<ShortURLStatistics, Long> {
 
     public ShortURLStatistics findByShortUrl(String shortURL);
 
