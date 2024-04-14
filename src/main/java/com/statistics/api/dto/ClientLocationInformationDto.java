@@ -1,7 +1,5 @@
 package com.statistics.api.dto;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -42,7 +40,7 @@ public class ClientLocationInformationDto {
     private String zipCode;
 
     @JsonProperty("accessed_at")
-    private LocalDateTime accessedAt;
+    private String accessedAt;
 
     @JsonProperty("client_device_information")
     private ClientDeviceInformationDto clientDeviceInformation;
