@@ -6,13 +6,13 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.statistics.api.domain.ShortURL;
+import com.statistics.api.domain.ShortURLStatistics;
 
 @Repository
-public interface ShortURLRepository extends JpaRepository<ShortURL, Long> {
+public interface ShortURLRepository extends JpaRepository<ShortURLStatistics, Long> {
 
-    public ShortURL findByShortUrl(String shortURL);
+    public ShortURLStatistics findByShortUrl(String shortURL);
 
-    public List<ShortURL> findAllByLongURLLongURL(String longURL);
+    public List<ShortURLStatistics> findAllByLongURLLongURL(String longURL);
 
 }
