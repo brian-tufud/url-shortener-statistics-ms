@@ -19,7 +19,7 @@ public class EventService {
     private ShortURLStatisticsService shortURLStatisticsService;
 
     public void processEvent(JSONObject event) {
-        String eventType = event.getString("event");
+        String eventType = event.getString("event_type");
 
         switch (eventType) {
             case EventTypes.URL_ACCESSED:
