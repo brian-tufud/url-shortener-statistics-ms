@@ -1,16 +1,18 @@
 package com.statistics.api.utils;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import com.statistics.api.domain.LongURL;
-import com.statistics.api.domain.ShortURL;
+import com.statistics.api.domain.LongURLStatistics;
+import com.statistics.api.domain.ShortURLStatistics;
 import com.statistics.api.domain.URLDeviceInformation;
-import com.statistics.api.dto.LongURLDto;
-import com.statistics.api.dto.ShortURLDto;
+import com.statistics.api.dto.LongURLStatisticsDto;
+import com.statistics.api.dto.ShortURLStatisticsDto;
+import com.statistics.api.dto.ShortURLStatisticsListDto;
 import com.statistics.api.dto.URLDeviceInformationDto;
 
 @Service
@@ -29,20 +31,30 @@ public class UtilsService {
         return responseHeaders;
     }
 
-    public LongURLDto convertLongURLToDto(LongURL longURL) {
-        LongURLDto dto = modelMapper.map(longURL, LongURLDto.class);
+    public LongURLStatisticsDto convertLongURLStatisticsToDto(LongURLStatistics longURL) {
+        LongURLStatisticsDto dto = modelMapper.map(longURL, LongURLStatisticsDto.class);
 
         if (longURL.getShortURLs() != null && !longURL.getShortURLs().isEmpty()) {
             dto.setShortURLs(longURL.getShortURLs().stream().map(shortURL -> {
-                return convertShortURLToDto(shortURL);
+                return convertShortURLStatisticsToDto(shortURL);
             }).collect(Collectors.toList()));
         }
 
         return dto;
     }
 
-    public ShortURLDto convertShortURLToDto(ShortURL shortURL) {
-        ShortURLDto dto = modelMapper.map(shortURL, ShortURLDto.class);
+    public ShortURLStatisticsListDto convertShortURLStatisticsListToDto(List<ShortURLStatistics> shortURLs) {
+        ShortURLStatisticsListDto dto = new ShortURLStatisticsListDto();
+
+        dto.setData(shortURLs.stream().map(shortURL -> {
+            return convertShortURLStatisticsToDto(shortURL);
+        }).collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    public ShortURLStatisticsDto convertShortURLStatisticsToDto(ShortURLStatistics shortURL) {
+        ShortURLStatisticsDto dto = modelMapper.map(shortURL, ShortURLStatisticsDto.class);
 
         if (shortURL.getDevices() != null && !shortURL.getDevices().isEmpty()) {
             dto.setDevices(shortURL.getDevices().stream().map(device -> {
