@@ -1,5 +1,7 @@
 package com.statistics.api.domain;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 import lombok.Getter;
@@ -36,8 +38,11 @@ public class URLDeviceInformation {
     @Column(name = "agent_version")
     private String agentVersion;
 
+    @Column(name = "accessed_at")
+    private LocalDateTime accessedAt;
+
     @ManyToOne
     @JoinColumn(name = "short_url")
-    private ShortURL shortURL;
+    private ShortURLStatistics shortURL;
     
 }
