@@ -3,11 +3,11 @@ package com.statistics.api.repository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.statistics.api.domain.LongURL;
+import com.statistics.api.domain.LongURLStatistics;
 
 @Repository
-public interface LongURLRepository extends JpaRepository<LongURL, Long> {
+public interface LongURLRepository extends JpaRepository<LongURLStatistics, Long> {
 
-    public LongURL findByLongURL(String LongURL);
+    public LongURLStatistics findByLongURL(String LongURL);
 
 }
