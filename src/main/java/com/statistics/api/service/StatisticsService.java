@@ -8,8 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import com.statistics.api.domain.LongURLStatistics;
+import com.statistics.api.domain.ShortURLStatistics;
+import com.statistics.api.dto.LongURLStatisticsDto;
+import com.statistics.api.dto.ShortURLStatisticsDto;
+import com.statistics.api.repository.LongURLStatisticsRepository;
+import com.statistics.api.repository.ShortURLStatisticsRepository;
 import com.statistics.api.response.IpStackResponse;
 import com.statistics.api.utils.Constants;
+import com.statistics.api.utils.UtilsService;
 
 import nl.basjes.parse.useragent.UserAgent;
 import nl.basjes.parse.useragent.UserAgentAnalyzer;
@@ -18,7 +25,28 @@ import nl.basjes.parse.useragent.UserAgentAnalyzer;
 public class StatisticsService {
 
     @Autowired
+    private UtilsService utilsService;
+    
+    @Autowired
     private IpStackService ipStackService;
+
+    @Autowired
+    private ShortURLStatisticsRepository shortURLRepository;
+
+    @Autowired
+    private LongURLStatisticsRepository longURLRepository;
+
+    public ShortURLStatisticsDto getShortURLStatistics(String shortURL) {
+        ShortURLStatistics data = shortURLRepository.findByShortUrl(shortURL);
+
+        return utilsService.convertShortURLStatisticsToDto(data);
+    }
+
+    public LongURLStatisticsDto getLongURLStatistics(String longURL) {
+        LongURLStatistics data = longURLRepository.findByLongURL(longURL);
+
+        return utilsService.convertLongURLStatisticsToDto(data);
+    }
 
     public void getUserAgentData(HttpServletRequest request) {
         String userAgentString = request.getHeader("User-Agent");
