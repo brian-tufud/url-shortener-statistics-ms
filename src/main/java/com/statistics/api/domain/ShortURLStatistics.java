@@ -12,26 +12,23 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "short_url")
+@Table(name = "short_url_statistics")
 public class ShortURLStatistics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    private Long id;
 
     @Column(name = "short_url")
     private String shortURL;
 
-    @Column(name = "last_accessed")
-    private LocalDateTime lastAccessed;
-
     @Column(name = "times_used")
     private Integer timesUsed;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "long_url")
     private LongURLStatistics longURL;
 
-	@OneToMany(mappedBy = "shortURL", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<URLDeviceInformation> devices = new ArrayList<>();
+    @OneToMany(mappedBy = "shortURLStatistics", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ClientLocationInformation> connections = new ArrayList<>();
 }

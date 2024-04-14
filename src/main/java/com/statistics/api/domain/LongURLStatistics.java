@@ -19,17 +19,17 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="long_url")
+@Table(name="long_url_statistics")
 public class LongURLStatistics {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    private Long id;
 
-	@Column(name="long_url", columnDefinition = "varchar(1337)")
-	private String longURL;
+    @Column(name="long_url", columnDefinition = "varchar(1337)")
+    private String longURL;
 
-	@OneToMany(mappedBy = "longURL", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "longURLStatistics", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ShortURLStatistics> shortURLs = new ArrayList<>();
 
 }
