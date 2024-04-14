@@ -32,7 +32,7 @@ public class ShortURLStatisticsService {
 
         return utilsService.convertShortURLStatisticsToDto(data);
     }
-
+    
     public ShortURLStatistics createShortURLStatistics(String shortURL, LongURLStatistics longURLStatistics) {
         ShortURLStatistics shortURLStatistics = new ShortURLStatistics();
 
@@ -43,6 +43,7 @@ public class ShortURLStatisticsService {
         return shortURLStatistics;
     }
 
+    @Transactional
     public void updateShortURLStatistics(SqsURLAccessedEventRequest body) {
         ShortURLStatistics shortURLStatistics = findByShortURL(body.getShortURL());
 
@@ -52,6 +53,7 @@ public class ShortURLStatisticsService {
         shortURLRepository.save(shortURLStatistics);
     }
 
+    @Transactional
     public void deleteShortURLStatistics(String shortURL) {
         ShortURLStatistics shortURLStatistics = findByShortURL(shortURL);
 

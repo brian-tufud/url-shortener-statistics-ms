@@ -1,5 +1,7 @@
 package com.statistics.api.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,7 @@ public class LongURLStatisticsService {
         return utilsService.convertLongURLStatisticsToDto(data);
     }
 
+    @Transactional
     public void saveLongURLStatistics(URLPairRequest body) {
         LongURLStatistics data = findByLongURL(body.getLongURL());
 
