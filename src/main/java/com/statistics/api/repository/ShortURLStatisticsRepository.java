@@ -11,7 +11,7 @@ import com.statistics.api.domain.ShortURLStatistics;
 @Repository
 public interface ShortURLStatisticsRepository extends JpaRepository<ShortURLStatistics, Long> {
 
-    public ShortURLStatistics findByShortUrl(String shortURL);
+    public ShortURLStatistics findByShortURL(String shortURL);
 
     public List<ShortURLStatistics> findAllByLongURLLongURL(String longURL);
 
