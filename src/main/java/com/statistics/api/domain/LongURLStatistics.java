@@ -29,7 +29,7 @@ public class LongURLStatistics {
     @Column(name="long_url", columnDefinition = "varchar(1337)")
     private String longURL;
 
-    @OneToMany(mappedBy = "longURLStatistics", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "longURL", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ShortURLStatistics> shortURLs = new ArrayList<>();
 
 }

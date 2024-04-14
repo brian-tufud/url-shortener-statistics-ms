@@ -45,7 +45,7 @@ public class ClientLocationInformation {
     private LocalDateTime accessedAt;
 
     @ManyToOne()
-    @JoinColumn(name = "short_url")
+    @JoinColumn(name = "short_url", referencedColumnName = "id")
     private ShortURLStatistics shortURL;
 
     @OneToOne(mappedBy = "clientLocationInformation", cascade = CascadeType.ALL, orphanRemoval = true)

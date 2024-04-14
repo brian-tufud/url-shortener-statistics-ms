@@ -26,9 +26,9 @@ public class ShortURLStatistics {
     private Integer timesUsed;
 
     @ManyToOne()
-    @JoinColumn(name = "long_url")
+    @JoinColumn(name = "long_url", referencedColumnName = "id")
     private LongURLStatistics longURL;
 
-    @OneToMany(mappedBy = "shortURLStatistics", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "shortURL", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ClientLocationInformation> connections = new ArrayList<>();
 }

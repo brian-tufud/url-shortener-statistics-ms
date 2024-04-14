@@ -37,6 +37,6 @@ public class ClientDeviceInformation {
     private String agentVersion;
 
     @OneToOne()
-    @JoinColumn(name = "client_location_information")
+    @JoinColumn(name = "client_location_information", referencedColumnName = "id")
     private ClientLocationInformation clientLocationInformation;
 }
