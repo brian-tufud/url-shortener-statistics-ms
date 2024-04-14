@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.statistics.api.domain.ClientDeviceInformation;
 import com.statistics.api.domain.ClientLocationInformation;
+import com.statistics.api.domain.ShortURLStatistics;
 import com.statistics.api.dto.ClientLocationInformationDto;
+import com.statistics.api.repository.ClientLocationInformationRepository;
 import com.statistics.api.request.SqsURLAccessedEventRequest;
 import com.statistics.api.utils.UtilsService;
 
@@ -22,7 +24,10 @@ public class ClientStatisticsService {
     @Autowired
     private IpStackService ipStackService;
 
-    public ClientLocationInformation createClientStatistics(SqsURLAccessedEventRequest body) {
+    @Autowired 
+    private ClientLocationInformationRepository clientInformationRepository;
+
+    public ClientLocationInformation createClientStatistics(SqsURLAccessedEventRequest body, ShortURLStatistics shortURLStatistics) {
         ClientLocationInformationDto locationData = getIPDetails(body.getClientIP());
 
         ClientLocationInformation clientLocationInformation = utilsService.createClientLocationInformationFromDto(locationData);
@@ -30,6 +35,10 @@ public class ClientStatisticsService {
         setUserDeviceData(clientLocationInformation, body.getUserAgent());
 
         setAccessedAt(clientLocationInformation, body.getAccessedAt());
+
+        clientLocationInformation.setShortURL(shortURLStatistics);
+
+        clientInformationRepository.save(clientLocationInformation);
 
         return clientLocationInformation;
     }
@@ -50,6 +59,7 @@ public class ClientStatisticsService {
         clientDeviceInformation.setOsVersion(agent.getValue("OperatingSystemVersion"));
         clientDeviceInformation.setAgentClass(agent.getValue("AgentName"));
         clientDeviceInformation.setAgentVersion(agent.getValue("AgentVersion"));
+        clientDeviceInformation.setClientLocationInformation(clientInformationLocation);
 
         clientInformationLocation.setClientDeviceInformation(clientDeviceInformation);
     }
