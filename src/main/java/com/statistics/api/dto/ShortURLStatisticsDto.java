@@ -30,5 +30,5 @@ public class ShortURLStatisticsDto {
     @JsonProperty("long_url")
     private LongURLStatisticsDto longURL;
     
-    private List<URLDeviceInformationDto> devices;
+    private List<ClientLocationInformationDto> connections;
 }

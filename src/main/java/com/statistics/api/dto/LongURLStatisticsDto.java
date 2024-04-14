@@ -1,6 +1,5 @@
 package com.statistics.api.dto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,7 +15,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class LongURLStatisticsDto {
 
-    @JsonProperty("id")
     private Long id;
 
     @JsonProperty("long_url")
