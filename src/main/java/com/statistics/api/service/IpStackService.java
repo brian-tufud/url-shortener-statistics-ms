@@ -8,7 +8,7 @@ import java.net.URL;
 
 import org.springframework.stereotype.Service;
 
-import com.statistics.api.response.IpStackResponse;
+import com.statistics.api.dto.ClientLocationInformationDto;
 import com.statistics.api.utils.Constants;
 
 import org.json.JSONObject;
@@ -16,7 +16,7 @@ import org.json.JSONObject;
 @Service
 public class IpStackService {
 
-    public IpStackResponse getIpDetails(String ipAddress) {
+    public ClientLocationInformationDto getIPDetails(String ipAddress) {
         try {
             String url =  Constants.IP_STACK_URL + ipAddress + "?access_key=" + Constants.IP_STACK_ACCESS_KEY;
 
@@ -33,7 +33,7 @@ public class IpStackService {
 
             JSONObject jsonResponse = new JSONObject(response.toString());
 
-            IpStackResponse ipStackResponse = new IpStackResponse();
+            ClientLocationInformationDto ipStackResponse = new ClientLocationInformationDto();
             ipStackResponse.setContinentCode(jsonResponse.getString("continent_code"));
             ipStackResponse.setContinentName(jsonResponse.getString("continent_name"));
             ipStackResponse.setCountryCode(jsonResponse.getString("country_code"));
@@ -47,7 +47,7 @@ public class IpStackService {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return null; // Manejo de error, devuelve null en caso de error
+            return null;
         }
     }
 
