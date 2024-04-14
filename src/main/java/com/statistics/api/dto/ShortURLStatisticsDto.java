@@ -1,6 +1,6 @@
 package com.statistics.api.dto;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,14 +21,11 @@ public class ShortURLStatisticsDto {
     @JsonProperty("short_url")
     private String shortURL;
     
-    @JsonProperty("last_accessed")
-    private LocalDateTime lastAccessed;
-    
     @JsonProperty("times_used")
     private int timesUsed;
     
     @JsonProperty("long_url")
-    private LongURLStatisticsDto longURL;
+    private String longURL;
     
     private List<ClientLocationInformationDto> connections;
 }
