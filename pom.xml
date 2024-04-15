@@ -11,10 +11,10 @@
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.url-shortener.api</groupId>
-	<artifactId>url-shortener-api</artifactId>
+	<groupId>com.statistics.api</groupId>
+	<artifactId>statistics-api</artifactId>
 	<packaging>jar</packaging>
-	<name>url-shortener-api</name>
+	<name>statistics-api</name>
 	<version>1.0.0</version>
 	<properties>
 		<java.version>1.8</java.version>
@@ -76,11 +76,6 @@
             <version>2.17.0</version>
         </dependency>
 		<dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-            <version>2.17.0</version>
-        </dependency>
-		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -94,7 +89,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.url-shortener.api.Application</mainClass>
+					<mainClass>com.statistics.api.Application</mainClass>
 				</configuration>
 				<executions>
 					<execution>
